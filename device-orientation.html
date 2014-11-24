@@ -27,20 +27,11 @@
           gamma: {
             value: null,
             reflect: true
-          },
-
-          /**
-           * The heading of the device relative to north.
-           */
-          heading: {
-            value: null,
-            reflect: true
           }
-
         },
 
         /**
-         * If true, the alpha, beta, gamma and heading properties updates as
+         * If true, the alpha, beta and gamma and properties updates as
          * the device changes orientation.
          */
         active: false,
@@ -58,10 +49,7 @@
           this.alpha = event.alpha;
           this.beta = event.beta;
           this.gamma = event.gamma;
-          if (event.absolute) {
-            this.heading = event.alpha;
-          }
-          // FIXME: check event.webkitCompassAccuracy
+
           // FIXME: fire event
         }
       });

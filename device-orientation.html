@@ -1,0 +1,70 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<polymer-element name="device-orientation" attributes="active">
+  <script>
+    (function() {
+      Polymer({
+        publish: {
+          /**
+           * The euler angle in degrees of the device from the standard Z axis.
+           */
+          alpha: {
+            value: null,
+            reflect: true
+          },
+
+          /**
+           * The euler angle in degrees of the device from the standard X axis.
+           */
+          beta: {
+            value: null,
+            reflect: true
+          },
+
+          /**
+           * The euler angle in degrees of the device from the standard Y axis.
+           */
+          gamma: {
+            value: null,
+            reflect: true
+          },
+
+          /**
+           * The heading of the device relative to north.
+           */
+          heading: {
+            value: null,
+            reflect: true
+          }
+
+        },
+
+        /**
+         * If true, the alpha, beta, gamma and heading properties updates as
+         * the device changes orientation.
+         */
+        active: false,
+
+        activeChanged: function() {
+          var callback = this.onOrientationChange.bind(this);
+          if (this.active) {
+            window.addEventListener('deviceorientation', callback);
+          } else {
+            window.removeEventListener('deviceorientation', callback);
+          }
+        },
+
+        onOrientationChange: function(event) {
+          this.alpha = event.alpha;
+          this.beta = event.beta;
+          this.gamma = event.gamma;
+          if (event.absolute) {
+            this.heading = event.alpha;
+          }
+          // FIXME: check event.webkitCompassAccuracy
+          // FIXME: fire event
+        }
+      });
+    })();
+  </script>
+</polymer-element>
